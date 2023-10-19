@@ -74,3 +74,5 @@ app.get('/receipts/:id/points', (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {console.log(`Running on port ${PORT}`);
 });
+
+//Tested endpoints with Postman
