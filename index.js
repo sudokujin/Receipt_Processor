@@ -1,12 +1,12 @@
-const express = require('express');
-const { v4: uuidv4 } = require('uuid');
+const express = require('express'); // To create the server
+const { v4: uuidv4 } = require('uuid'); // To generate unique IDs
 
 const app = express();
-app.use(express.json());
+app.use(express.json()); 
 
-const receipts = {};
+const receipts = {}; 
 
-const calculatePoints = (receipt) => {
+const calculatePoints = (receipt) => { // Function to calculate points
     let points = 0;
     
     points += receipt.retailer.replace(/[^a-zA-Z]/g, '').length;
@@ -51,7 +51,7 @@ const calculatePoints = (receipt) => {
     return points;
 };
 
-app.post('/receipts/process', (req, res) => {
+app.post('/receipts/process', (req, res) => { // Endpoint to process receipts
     const id = uuidv4();
     const receipt = req.body;
     const points = calculatePoints(receipt);
@@ -60,7 +60,7 @@ app.post('/receipts/process', (req, res) => {
     res.json({ id });
 });
 
-app.get('/receipts/:id/points', (req, res) => {
+app.get('/receipts/:id/points', (req, res) => { // Endpoint to get points
     const id = req.params.id;
     const data = receipts[id];
 
@@ -71,7 +71,7 @@ app.get('/receipts/:id/points', (req, res) => {
     res.json({ points: data.points });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; // Port to run the server
 app.listen(PORT, () => {console.log(`Running on port ${PORT}`);
 });
 
